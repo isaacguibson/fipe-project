@@ -1,4 +1,4 @@
-package com.mdasdead;
+package com.mbank;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -6,11 +6,11 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/status")
-public class ExampleResource {
+public class HealthResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Api-2 is ok!";
+        return "Api-1 is ok!";
     }
 }

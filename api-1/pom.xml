@@ -84,6 +84,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-redis-cache</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

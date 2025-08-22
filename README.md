@@ -91,3 +91,12 @@ localhost:8081/marcas/carga-inicial
 **ATENÇÃO: MESMO QUE API RETORNE DADOS, ISSO IRÁ POPULAR O BANCO COM VÁRIOS REGISTROS E PODE DEMORAR ALGUNS MINUTOS**
 
 Acompanhe no log da aplicação o fim da carga inicial.
+
+
+## Documentação
+
+A documentação dos end-points fica acessível em:
+
+```
+localhost:8081/docs
+```
