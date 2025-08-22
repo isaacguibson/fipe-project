@@ -1,9 +1,14 @@
 package com.mbank.entity;
 
-import io.quarkus.arc.impl.Identified;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "marca")
 public class Marca {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_marca")
     private Integer id;
 
     private Integer codigo;

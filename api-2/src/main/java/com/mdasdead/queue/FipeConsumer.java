@@ -27,38 +27,34 @@ import static java.util.Objects.nonNull;
 public class FipeConsumer {
 
     @Inject
-    MarcaRepository marcaRepository;
+    MarcaService marcaService;
 
     @Inject
     @RestClient
     FipeClient fipeClient;
 
     @Inject
-    VeiculoRepository veiculoRepository;
-
-    @Inject
     VeiculoService veiculoService;
 
     @Incoming("fipequeue")
-    @Blocking
+    @Transactional
     public void getData(String msg) {
         Log.info("INICIALIZANDO CARGA: " + msg);
 
         // Realizar carga inicial se banco vazio
-        if(marcaRepository.countAll() == 0) {
+        if(marcaService.countAll() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
-                List<Marca> marcas = objectMapper.readValue(msg, new TypeReference<>() {
-                });
+                List<Marca> marcas = objectMapper.readValue(msg, new TypeReference<>() {});
                 if(nonNull(marcas) && !marcas.isEmpty()) {
                     marcas.forEach(marca -> {
                         MarcaModeloDTO marcaModelo = fipeClient.getRemoteByMarca(marca.getCodigo());
-                        var marcaSalva = marcaRepository.save(marca);
+                        var marcaSalva = marcaService.save(marca);
                         Log.info("SALVANDO MARCA: " + marcaSalva.getCodigo() + " - " + marca.getNome());
                         var veiculos = veiculoService.getModelosByMarcaModelo(marcaModelo);
                         veiculos.forEach(veiculo -> {
                             veiculo.setMarca(marcaSalva);
-                            veiculoRepository.save(veiculo);
+                            veiculoService.save(veiculo);
                             Log.info("SALVANDO VEICULO: " + veiculo.getCodigo() + " - " + veiculo.getModelo());
                         });
                     });

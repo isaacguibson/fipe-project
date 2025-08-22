@@ -4,6 +4,7 @@ import com.mbank.entity.Marca;
 
 public class MarcaDTO {
 
+    private Integer id;
     private Integer codigo;
     private String nome;
 
@@ -11,8 +12,24 @@ public class MarcaDTO {
 
     public MarcaDTO(final Marca marca) {
         super();
+        this.id = marca.getId();
         this.codigo = marca.getCodigo();
         this.nome = marca.getNome();
+    }
+
+    public MarcaDTO(final Integer id, final Integer codigo, final String nome) {
+        super();
+        this.id = id;
+        this.codigo = codigo;
+        this.nome = nome;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getCodigo() {

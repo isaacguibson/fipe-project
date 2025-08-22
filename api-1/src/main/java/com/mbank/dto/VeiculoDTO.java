@@ -1,31 +1,30 @@
-package com.mbank.entity;
+package com.mbank.dto;
 
-import jakarta.persistence.*;
+import com.mbank.entity.Veiculo;
 
-@Entity
-@Table(name = "veiculo")
-public class Veiculo {
+public class VeiculoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_veiculo")
     private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "id_marca")
-    private Marca marca;
-
-    @Column(name = "codigo")
     private Integer codigo;
-
-    @Column(name = "modelo")
     private String modelo;
-
-    @Column(name = "observacao")
     private String observacao;
 
-    public Veiculo() {
+    public VeiculoDTO() {super();}
+
+    public VeiculoDTO(final Veiculo veiculo) {
         super();
+        this.id = veiculo.getId();
+        this.codigo = veiculo.getCodigo();
+        this.modelo = veiculo.getModelo();
+        this.observacao = veiculo.getObservacao();
+    }
+
+    public VeiculoDTO(final Integer id, final Integer codigo, final String modelo, final String observacao) {
+        super();
+        this.id = id;
+        this.codigo = codigo;
+        this.modelo = modelo;
+        this.observacao = observacao;
     }
 
     public Integer getId() {
@@ -58,13 +57,5 @@ public class Veiculo {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
-    }
-
-    public Marca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
     }
 }
