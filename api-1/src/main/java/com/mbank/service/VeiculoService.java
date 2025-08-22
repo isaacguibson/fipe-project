@@ -3,6 +3,8 @@ package com.mbank.service;
 import com.mbank.dto.VeiculoDTO;
 import com.mbank.entity.Veiculo;
 import com.mbank.repository.VeiculoRepository;
+import io.quarkus.cache.CacheInvalidateAll;
+import io.quarkus.cache.CacheResult;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -18,6 +20,7 @@ public class VeiculoService {
     @Inject
     private VeiculoRepository veiculoRepository;
 
+    @CacheResult(cacheName = "veiculos-by-marca-cache")
     public List<VeiculoDTO> findDTOByMarca(final Integer idMarca) {
         return veiculoRepository.findDTOByMarca(idMarca);
     }
@@ -30,6 +33,7 @@ public class VeiculoService {
             throw new RuntimeException("Veiculo não encontrado");
         }
         changeVeiculoData(veiculoToSave, veiculoDTO);
+        this.clearCache();
         return new VeiculoDTO(veiculoToSave);
     }
 
@@ -49,4 +53,7 @@ public class VeiculoService {
             throw new RuntimeException("O id do veículo deve ser informado");
         }
     }
+
+    @CacheInvalidateAll(cacheName = "veiculos-by-marca-cache")
+    public void clearCache() {}
 }

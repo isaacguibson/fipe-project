@@ -2,6 +2,7 @@ package com.mbank.controller;
 
 import com.mbank.dto.VeiculoDTO;
 import com.mbank.service.VeiculoService;
+import io.quarkus.cache.CacheResult;
 import io.quarkus.security.Authenticated;
 import io.quarkus.security.identity.SecurityIdentity;
 import jakarta.inject.Inject;

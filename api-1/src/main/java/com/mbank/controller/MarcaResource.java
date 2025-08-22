@@ -11,6 +11,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import io.quarkus.cache.CacheResult;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class MarcaResource {
         try {
             return marcaService.findAll();
         } catch (Exception e) {
-            throw new WebApplicationException("Não foi possível realizar carga inicial de marcas", Response.Status.INTERNAL_SERVER_ERROR);
+            throw new WebApplicationException("Não foi possível processar a requisição", Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
 }
